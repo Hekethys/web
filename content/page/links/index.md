@@ -1,9 +1,9 @@
 ---
 title: Links
 links:
-  - title: GitHub
-    description: GitHub is the world's largest software development platform.
-    website: https://github.com
+  - title: TryHackMe
+    description: TryHackMe is a free online platform for learning cyber security, using hands-on exercises and labs, all through your browser!
+    website: https://tryhackme.com/p/Hekethys
     image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
 menu:
     main: 
