@@ -7,7 +7,7 @@ links:
     image: https://i.postimg.cc/pdBf6H1t/tryhackme.png
     
   - title: Root-Me
-    description: The fast, easy, and affordable way lto train your hacking skills.
+    description: The fast, easy, and affordable way to train your hacking skills.
     website: https://www.root-me.org/0Nemo
     image: https://i.postimg.cc/6pWn4Spj/rootme.png
 menu:
