@@ -7,6 +7,6 @@ menu:
         params: 
             icon: user
 ---
-Hello, I'm Heke a cybersecurity student. 
+Hello, I'm Heke a cybersecurity student.
 
 I'm currently a student at the **Aix-Marseille University Institute of Technology** and I will start an apprenticeship at **ESIEA** in September 💻
