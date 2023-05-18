@@ -1,6 +1,7 @@
 ---
 title: "About"
 date: 2022-03-06
+image: /tryhackme/skynet/1.PNG
 menu:
     main:
         weight: 2
